@@ -11,3 +11,28 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.bg-color{
+  background-color: #1e2a4be8;
+}
+
+.text-ok{
+  color: #fefeff !important;
+  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 15px;
+}
+.text-font{
+  font-family: italic;
+  font-size: large;
+}
+.line{
+ text-underline-offset: none;
+}
+.icon{
+  font-size: 200px;
+color: #1e2a4be8;
+}
+
+.footer{
+  margin-right: 0 !important;
+}
