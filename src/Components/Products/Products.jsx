@@ -6,7 +6,7 @@ import Spinner from '../Spinner/Spinner.jsx';
 import axios from 'axios';
 
 export default function Products() {
-  let { getAllCategories, categories, getUserCart, AddToCart } = useContext(AuthContext)
+  let { getAllCategories, categories, getUserCart ,addProductToCart} = useContext(AuthContext)
   let [popUp, setPopUp] = useState(false)
   const [loading, setLoading] = useState(true)
   const [products, setProducts] = useState([])
@@ -20,7 +20,7 @@ export default function Products() {
   const sortProductsByPrice = () => {
     const sortedProducts = [...products].sort((a, b) => a.price - b.price);
     setProducts(sortedProducts);
-    console.log(sortedProducts);
+
   };
 
 
@@ -29,7 +29,6 @@ export default function Products() {
     axios.get(`https://fakestoreapi.com/products`).then((data) => {
       setProducts(data.data)
       setLoading(false)
-      console.log(data.data);
     }).catch((err) => {
       console.log(err);
     })
@@ -82,7 +81,7 @@ export default function Products() {
 
                   </div>
                 </Link>
-                <button onClick={AddToCart} className='btn btn-outline-secondary bg-color text-ok d-block  w-100 mb-3'>Add Product</button>
+                <button onClick={addProductToCart} className='btn btn-outline-secondary bg-color text-ok d-block  w-100 mb-3'>Add Product</button>
 
               </div>
             })}

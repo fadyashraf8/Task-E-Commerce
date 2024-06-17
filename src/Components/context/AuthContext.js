@@ -10,6 +10,7 @@ export let AuthContext = createContext()
 export default function AuthContextProvider({ children }) {
 
   const [userData, setUserData] = useState(null)
+  const [cartProducts, setCartProducts] = useState([])
 
   const [categories, setCategories] = useState([])
   const [cartItems, setCartItems] = useState(0)
@@ -22,7 +23,8 @@ export default function AuthContextProvider({ children }) {
     let token = localStorage.getItem("token")
     let decodedToken = jwtDecode(token)
     setUserData(decodedToken)
-
+    
+    localStorage.setItem("userId",decodedToken.sub)
   }
   function getAllCategories() {
     axios.get(`https://fakestoreapi.com/products/categories`).then((data) => {
@@ -34,32 +36,49 @@ export default function AuthContextProvider({ children }) {
     })
   }
 
-  function AddToCart() {
+
+
+  function getUserCart() {
+    let userId=localStorage.getItem("userId")
+    axios.get(`https://fakestoreapi.com/carts/${userId}`).then((data) => {
+    
+      setCartProducts(data.data.products)
+      setCartItems(data.data.products.map(e => e.quantity))
+    }).catch((err) => {
+
+    })
+  }
+  function addProductToCart() {
+
+
     if (userData) {
+      fetch('https://fakestoreapi.com/carts',{
+        method:"POST",
+        body:JSON.stringify(
+            {
+                userId:1,
+                date:2024-2-3,
+                products:[{productId:5,quantity:1},{productId:1,quantity:5}]
+            }
+        )
+    })
+        .then(res=>res.json())
+        .then(json=>console.log(json))
       notify("Added To Cart", "success")
     } else {
       notify("Log in First", "error")
 
     }
+    
+
   }
-
-  function getUserCart() {
-    axios.get(`https://fakestoreapi.com/carts/2`).then((data) => {
-
-      setCartItems(data.data.products.map(e=>e.quantity))
-    }).catch((err) => {
-     
-
-    })
-  }
-
 
   function logOut() {
     localStorage.removeItem("token")
     setUserData(null)
     return <Navigate to='/home' />
   }
-  return <AuthContext.Provider value={{ SaveUserData, userData, logOut, getAllCategories, categories, setCategories, getUserCart, AddToCart,cartItems }}>
+  return <AuthContext.Provider value={{ SaveUserData, userData, logOut, getAllCategories, categories, setCategories, getUserCart, cartItems, addProductToCart,cartProducts }}>
     {children}
   </AuthContext.Provider>
 }

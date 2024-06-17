@@ -28,14 +28,13 @@ export default function Navbar() {
                         {userData !== null ?
 
                             <ul className="navbar-nav ms-auto">
-                                <button type="button" className="btn position-relative fs-6 text-white mx-3 mt-2">
-                               
+                                <Link to='/usercart' type="button" className="btn position-relative fs-6 text-white mx-3 mt-2">
                                     <i className="fa-solid fa-cart-shopping"></i>
                                     <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-success my-2">
                                         {cartItems}
                                         <span className="visually-hidden">unread messages</span>
                                     </span>
-                                </button>
+                                </Link>
                                 <li className="nav-item ">
                                     <Link className="nav-link text-ok fs-4 " onClick={logOut} >Logout</Link>
                                 </li>

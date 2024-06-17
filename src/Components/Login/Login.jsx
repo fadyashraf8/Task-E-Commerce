@@ -32,6 +32,7 @@ export default function Login() {
       localStorage.setItem("token", data.data.token)
       navigate("/")
       SaveUserData()
+      
       setLoading(false)
       notify("success", 'success')
     }).catch((err) => {

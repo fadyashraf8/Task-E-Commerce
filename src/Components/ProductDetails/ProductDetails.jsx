@@ -6,6 +6,9 @@ import { AuthContext } from '../context/AuthContext.js'
 
 export default function ProductDetails() {
 
+
+  let { addProductToCart} = useContext(AuthContext)
+
     let { id } = useParams()
     let [product, setProduct] = useState('')
     let [loading, setLoading] = useState(true)
@@ -40,7 +43,7 @@ export default function ProductDetails() {
                     <h6 className=''>Description: <span className='h4'>{product.description}</span></h6>
                     <h6 className=''>Price: <span className='h4'>{product.price}</span></h6>
                     <h6 className=''>Category: <span className='h4'>{product.category}</span></h6>
-                    <button onClick={AddToCart} className='btn btn-outline-secondary bg-color text-ok d-block my-3 w-100 '>Add To Cart</button>
+                    <button onClick={addProductToCart} className='btn btn-outline-secondary bg-color text-ok d-block my-3 w-100 '>Add To Cart</button>
                 </div>
             </div>}
          
